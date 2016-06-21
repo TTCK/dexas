@@ -1,2 +1,2 @@
 # dexas
-Dexas!!
+It is online Dexas Poker game!!
