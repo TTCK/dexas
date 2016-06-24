@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+option java_package = "com.ttck.ipc.protocol";
+option java_outer_classname = "PlayerProto";
+
+message Player {
+    required string name = 1;
+    required int32 id = 2;
+    optional string email = 3;
+    required string card = 4;
+}
