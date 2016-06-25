@@ -3,6 +3,7 @@ package com.ttck.test;
 import junit.framework.Assert;
 import org.junit.Test;
 import com.ttck.dexas.*;
+import com.ttck.dexas.engine.Deck;
 
 public class DeckTest {
 

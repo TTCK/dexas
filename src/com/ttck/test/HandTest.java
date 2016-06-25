@@ -3,6 +3,10 @@ package com.ttck.test;
 import junit.framework.Assert;
 import org.junit.Test;
 import com.ttck.dexas.*;
+import com.ttck.dexas.engine.Card;
+import com.ttck.dexas.engine.Hand;
+import com.ttck.dexas.engine.HandEval;
+import com.ttck.dexas.engine.ValueType;
 
 public class HandTest {
 

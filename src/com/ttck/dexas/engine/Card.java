@@ -1,4 +1,4 @@
-package com.ttck.dexas;
+package com.ttck.dexas.engine;
 
 public class Card implements Comparable<Card> {
 
