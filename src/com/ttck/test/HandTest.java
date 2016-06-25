@@ -186,7 +186,7 @@ public class HandTest {
         
         //Royal flush!!!
         evaluator = new HandEval(new Hand("As Ks Qs Js Ts 9s 4d"));
-        Assert.assertEquals(ValueType.STRAIGHT_FLUSH, evaluator.getType());
+        Assert.assertEquals(ValueType.ROYAL_FLUSH, evaluator.getType());
         value18 = evaluator.getValue();
         Assert.assertTrue(value18 > value17);
         System.out.println(value18);

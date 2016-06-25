@@ -11,9 +11,9 @@ public class CardTest {
 	public void basictest() {
 		Card card = new Card(Card.FOUR, Card.HEARTS);
         Assert.assertNotNull(card);
-        Assert.assertEquals(Card.NINE, card.getRank());
-        Assert.assertEquals(Card.SPADES, card.getSuit());
-        Assert.assertEquals("9s", card.toString());
+        Assert.assertEquals(Card.FOUR, card.getRank());
+        Assert.assertEquals(Card.HEARTS, card.getSuit());
+        Assert.assertEquals("4h", card.toString());
         card = new Card("   As "); 
         Assert.assertNotNull(card);
         Assert.assertEquals(Card.ACE, card.getRank());
