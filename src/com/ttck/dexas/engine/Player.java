@@ -159,8 +159,21 @@ public class Player {
      * 
      */
     public Action act(BigDecimal minBet, BigDecimal currentBet, Set<ActionType> allowedActions) {
+    	
     	Action act = null;
-    	//to be implemented....
+    	
+    	if(allowedActions.size() > 0){
+    		if(allowedActions.contains(ActionType.CALL)){
+    			act = new Action(ActionType.CALL, null);
+    		}
+    		else if(allowedActions.contains(ActionType.CHECK)){
+    			act = new Action(ActionType.CHECK,null);
+    		}
+    		else if(allowedActions.contains(ActionType.BET)){
+    			act = new Action(ActionType.BET,BigDecimal.valueOf(5));
+    		}
+    		
+    	}
     	this.action = act;
     	return act;
     }

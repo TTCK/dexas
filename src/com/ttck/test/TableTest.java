@@ -11,9 +11,9 @@ import com.ttck.dexas.engine.*;
 
 public class TableTest {
 
-    private static final BigDecimal BIG_BLIND = BigDecimal.valueOf(5);
+    private static final BigDecimal BIG_BLIND = BigDecimal.valueOf(2);
 
-    private static final BigDecimal STARTING_CASH = BigDecimal.valueOf(200);
+    private static final BigDecimal STARTING_CASH = BigDecimal.valueOf(100);
     
 
 	

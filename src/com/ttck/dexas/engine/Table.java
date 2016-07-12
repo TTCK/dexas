@@ -74,12 +74,16 @@ public class Table {
         actorPosition = -1;
         while (true) {
             int noOfActivePlayers = 0;
+            Boolean stop = false;
             for (Player player : players) {
-                if (player.getCash().compareTo(bigBlind) >= 0) {
-                    noOfActivePlayers++;
+            	System.out.println(player.getName() + " cash: " + player.getCash().toString());
+                if (player.getCash().compareTo(bigBlind) < 0) {
+                    stop = true;
                 }
-            }
-            if (noOfActivePlayers > 1) {
+            }          
+           
+            if (!stop) {
+            	System.out.println("$$$$$$$$$$$$$  New Game!!!");
                 playHand();
             } else {
                 break;
@@ -120,12 +124,14 @@ public class Table {
         if (activePlayers.size() > 1) {
             bet = BigDecimal.ZERO;
             dealCommunityCards("Flop", 3);
+            System.out.println("Flop cards: " + board.get(0).toString() + " " + board.get(1).toString() + " " + board.get(2).toString());
             doBettingRound();
 
             // Turn.
             if (activePlayers.size() > 1) {
                 bet = BigDecimal.ZERO;
                 dealCommunityCards("Turn", 1);
+                System.out.println("Turn cards: " + board.get(3).toString());
                 minBet = bigBlind.add(bigBlind);
                 doBettingRound();
 
@@ -133,6 +139,7 @@ public class Table {
                 if (activePlayers.size() > 1) {
                     bet = BigDecimal.ZERO;
                     dealCommunityCards("River", 1);
+                    System.out.println("River cards: " + board.get(4).toString());
                     doBettingRound();
 
                     // Showdown.
@@ -260,6 +267,7 @@ public class Table {
                 // Player is all-in, so must check.
                 action = new Action(ActionType.CHECK,null);
                 playersToAct--;
+                System.out.println("Player  " + actor.getName() + "  All IN!!!");
             } else {
                 // Otherwise allow client to act.
                 Set<ActionType> allowedActions = getAllowedActions(actor);
@@ -268,6 +276,7 @@ public class Table {
                 playersToAct--;
                 if (action.getActionType() == ActionType.CHECK) {
                     // Do nothing.
+                	System.out.println("Player  " + actor.getName() + " Check");
                 } else if (action.getActionType() == ActionType.CALL) {
                     BigDecimal betIncrement = bet.subtract(actor.getBet());
                     if (betIncrement.compareTo(actor.getCash()) > 0) {
@@ -276,6 +285,8 @@ public class Table {
                     actor.payCash(betIncrement);
                     actor.setBet(actor.getBet().add(betIncrement));
                     contributePot(betIncrement);
+                    
+                    System.out.println("Player  " + actor.getName() + " call " + betIncrement.toString());
                 } else if (action.getActionType() == ActionType.BET) {
                     BigDecimal amount = action.getAmount();
                     if (amount.compareTo(minBet) < 0 && amount.compareTo(actor.getCash()) < 0) {
@@ -288,6 +299,7 @@ public class Table {
                     minBet = amount;
                     lastBettor = actor;
                     playersToAct = activePlayers.size();
+                    System.out.println("Player  " + actor.getName() + " Bet " + amount.toString());
                 } else if (action.getActionType() == ActionType.RAISE) {
                     BigDecimal amount = action.getAmount();
                     if (amount.compareTo(minBet) < 0 && amount.compareTo(actor.getCash()) < 0) {
@@ -305,6 +317,8 @@ public class Table {
                     lastBettor = actor;
                     raises++;
                     playersToAct = activePlayers.size();
+                    
+                    System.out.println("Player  " + actor.getName() + "Raise " + betIncrement.toString());
                 
                 } else if (action.getActionType() == ActionType.FOLD) {
                     actor.setCards(null);
@@ -497,7 +511,7 @@ public class Table {
               }
               if (noOfWinnersInPot > 0) {
                   // Divide pot over winners.
-                  BigDecimal potShare = pot.getValue().divide(new BigDecimal(String.valueOf(noOfWinnersInPot))); //TODO
+                  BigDecimal potShare = pot.getValue().divide(new BigDecimal(String.valueOf(noOfWinnersInPot)),BigDecimal.ROUND_HALF_UP); 
                   for (Player winner : winners) {
                       if (pot.hasContributer(winner)) {
                           BigDecimal oldShare = potDivision.get(winner);
@@ -541,10 +555,12 @@ public class Table {
           if (winnerText.length() > 0) {
               winnerText.append(", ");
           }
-          winnerText.append(String.format("%s wins $ %d", winner, potShare));
+          winnerText.append(String.format("%s wins $ %s", winner, potShare.toString()));
           
       }
-      winnerText.append('.');     
+      winnerText.append('.');  
+      
+      System.out.println(winnerText);
       
       // Sanity check.
       if (!totalWon.equals(totalPot)) {
