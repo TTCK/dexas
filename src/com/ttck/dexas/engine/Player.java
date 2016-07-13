@@ -3,11 +3,20 @@ package com.ttck.dexas.engine;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
+import java.util.Random;
 
 public class Player {
 
 	/** Name. */
     private final String name;
+    
+	/** 
+	 * Type. 
+	 * 0 -- always check or call
+	 * 1 -- random bet
+	 * 2 -- smart AI
+	 */
+    private final int type; 
 
     /** Hand of cards. */
     private final Hand hand;
@@ -24,9 +33,10 @@ public class Player {
     /** Last action performed. */
     private Action action;
     
-    public Player(String name, BigDecimal cash) {
+    public Player(String name, BigDecimal cash, int type) {
         this.name = name;
         this.cash = cash;
+        this.type = type;
         
         hand = new Hand();
 
@@ -162,18 +172,34 @@ public class Player {
     	
     	Action act = null;
     	
-    	if(allowedActions.size() > 0){
-    		if(allowedActions.contains(ActionType.CALL)){
-    			act = new Action(ActionType.CALL, null);
-    		}
-    		else if(allowedActions.contains(ActionType.CHECK)){
-    			act = new Action(ActionType.CHECK,null);
-    		}
-    		else if(allowedActions.contains(ActionType.BET)){
-    			act = new Action(ActionType.BET,BigDecimal.valueOf(5));
-    		}
-    		
-    	}
+    	// 0 -- always check or call
+   	    // 1 -- random bet
+   	    // 2 -- smart AI
+    	if(type == 0){  
+	    	if(allowedActions.size() > 0){
+	    		if(allowedActions.contains(ActionType.CALL)){
+	    			act = new Action(ActionType.CALL, null);
+	    		}
+	    		else if(allowedActions.contains(ActionType.CHECK)){
+	    			act = new Action(ActionType.CHECK,null);
+	    		}	    		
+	    	}
+    	}else if(type == 1){ 
+    		if(allowedActions.size() > 0){
+    	   		Random random = new Random();
+    	   		int index = random.nextInt(allowedActions.size());
+    	   		
+    	   		ActionType type = (ActionType)allowedActions.toArray()[index];
+    	   		
+    	   		if(type == ActionType.RAISE || type == ActionType.BET){
+    	   			act = new Action(type, cash.compareTo(BigDecimal.valueOf(4)) > 0 ? BigDecimal.valueOf(4) : cash);
+    	   		} 
+    	   		else{
+    	   			act = new Action(type, null);
+    	   		}    	   	    		
+	    	}
+	    }
+    	
     	this.action = act;
     	return act;
     }

@@ -511,7 +511,7 @@ public class Table {
               }
               if (noOfWinnersInPot > 0) {
                   // Divide pot over winners.
-                  BigDecimal potShare = pot.getValue().divide(new BigDecimal(String.valueOf(noOfWinnersInPot)),BigDecimal.ROUND_HALF_UP); 
+                  BigDecimal potShare = pot.getValue().divide(new BigDecimal(String.valueOf(noOfWinnersInPot)),BigDecimal.ROUND_DOWN); 
                   for (Player winner : winners) {
                       if (pot.hasContributer(winner)) {
                           BigDecimal oldShare = potDivision.get(winner);

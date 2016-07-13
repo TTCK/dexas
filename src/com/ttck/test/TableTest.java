@@ -22,10 +22,10 @@ public class TableTest {
 	    /* The players at the table. */
 	    Map<String, Player> players = new LinkedHashMap<>();
 
-	    players.put("Thomas", new Player("Thomas", STARTING_CASH));
-	    players.put("Terry", new Player("Terry", STARTING_CASH));
-	    players.put("Cosmos", new Player("Cosmos", STARTING_CASH));
-	    players.put("Kemp", new Player("Kemp", STARTING_CASH));
+	    players.put("Thomas", new Player("Thomas", STARTING_CASH, 1));
+	    players.put("Terry", new Player("Terry", STARTING_CASH, 0));
+	    players.put("Cosmos", new Player("Cosmos", STARTING_CASH, 0));
+	    players.put("Kemp", new Player("Kemp", STARTING_CASH, 0));
 	    
 	    /* The table. */
         Table table = new Table(BIG_BLIND);
