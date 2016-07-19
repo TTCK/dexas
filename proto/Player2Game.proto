@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "MessageBase.proto";
+import "Player.proto";
+
+option java_package = "com.ttck.ipc.protocol";
+option java_outer_classname = "Player2GameComm";

@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+option java_package = "com.ttck.ipc.protocol";
+option java_outer_classname = "MessageBase";
+
+message Request
+{
+    optional int32  timeout = 1;
+    optional string reqid   = 2;
+}
+
+message Response
+{
+    required int32  errcode = 1;
+    optional string errmsg  = 2;
+}

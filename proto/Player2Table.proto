@@ -1,0 +1,57 @@
+syntax = "proto2";
+
+import "MessageBase.proto";
+import "Player.proto";
+
+option java_package = "com.ttck.ipc.protocol";
+option java_outer_classname = "Player2TableComm";
+
+message JoinTableRequest {
+	required Request base      = 1;
+    required int32   playerid  = 2;
+    required int32   tableid   = 3;
+}
+
+message JoinTableResponse {
+	required Response base     = 1;
+}
+
+message GetTableInfoRequest {
+    required Request  base     = 1;
+    required int32    tableid  = 2;
+}
+
+message GetTableInfoResponse {
+	required Response   base    = 1;
+	repeated PlayerInfo players = 2;
+}
+
+message SitdownTableRequest {
+	required Request    base    = 1;
+	required PlayerInfo player  = 2;
+	required int32      tableid = 3;
+}
+
+message SitdownTableResponse {
+	required Response  base = 1;
+}
+
+message StandupTableRequest {
+	required Request    base    = 1;
+	required PlayerInfo player  = 2;
+	required int32      tableid = 3;
+}
+
+message StandupTableResponse {
+	required Response  base = 1;
+}
+
+message LeaveTableRequest {
+	required Request base      = 1;
+    required int32   playerid  = 2;
+    required int32   tableid   = 3;
+}
+
+message LeaveTableResponse {
+	required Response base     = 1;
+}
